@@ -1,7 +1,6 @@
 import { Component, createSignal } from "solid-js";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
-import logo from "./logo.svg";
 import styles from "./App.module.css";
 
 const App: Component = () => {
