@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  color: white;
+  padding-top: 32px;
+}
+
+button {
+  color: white;
+
 }
 
 .logo {
