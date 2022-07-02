@@ -20,16 +20,16 @@ const App: Component = () => {
             <input
               type="text"
               value={key()}
-              onChange={(e) => {
-                setKey(e.target.value);
+              onChange={(e: Event) => {
+                setKey((e.target as HTMLInputElement).value);
               }}
             />
             <p>Insert data</p>
             <input
               type="text"
               value={textData()}
-              onChange={(e) => {
-                setTextData(e.target.value);
+              onChange={(e: Event) => {
+                setTextData((e.target as HTMLInputElement).value);
               }}
             />
             <button
@@ -46,8 +46,8 @@ const App: Component = () => {
             <input
               type="text"
               value={key()}
-              onChange={(e) => {
-                setKey(e.target.value);
+              onChange={(e: Event) => {
+                setKey((e.target as HTMLInputElement).value);
               }}
             />
             <button
