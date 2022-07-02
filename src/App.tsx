@@ -2,6 +2,7 @@ import { Component, createSignal } from "solid-js";
 import aes from "crypto-js/aes";
 import CryptoJS from "crypto-js";
 import styles from "./App.module.css";
+import Calendar from "./components/calendar/Calendar";
 
 const App: Component = () => {
   const [textData, setTextData] = createSignal("");
@@ -13,6 +14,7 @@ const App: Component = () => {
     <div class={styles.App}>
       <div class="container">
         <h1>E2E Tracking app</h1>
+        <Calendar />
         <div class="row">
           <div class="six columns">
             <p>Insert key</p>
