@@ -1,8 +1,8 @@
 import { Component, createSignal } from "solid-js";
 import aes from "crypto-js/aes";
-import CryptoJS from "crypto-js";
 import styles from "./App.module.css";
 import Calendar from "./components/calendar/Calendar";
+import { aesDec, aesEnc } from "./helpers/aes";
 
 const App: Component = () => {
   const [textData, setTextData] = createSignal("");
@@ -35,7 +35,7 @@ const App: Component = () => {
             />
             <button
               onClick={() => {
-                setResult(aes.encrypt(textData(), key()).toString());
+                setResult(aesEnc(textData(), key()));
               }}
             >
               Encrypt
@@ -53,8 +53,7 @@ const App: Component = () => {
             />
             <button
               onClick={() => {
-                let bytes = aes.decrypt(result(), key());
-                setDecryptResult(bytes.toString(CryptoJS.enc.Utf8));
+                setDecryptResult(aesDec(result(), key()));
               }}
             >
               Decrypt
