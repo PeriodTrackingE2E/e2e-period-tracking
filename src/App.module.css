@@ -3,10 +3,14 @@
   color: white;
   padding-top: 32px;
 }
+.App__container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
 
 button {
   color: white;
-
 }
 
 .logo {
