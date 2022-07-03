@@ -53,7 +53,12 @@ export const PeriodArr: Period[] = [
   "Abbondante",
 ];
 
-export const DayJournal = [
+export interface IDayJournal {
+  title: string;
+  values: string[];
+}
+
+export const DayJournal: IDayJournal[] = [
   {
     title: "Mestruazioni",
     values: PeriodArr,
