@@ -1,15 +1,43 @@
-import { Component, createSignal } from "solid-js";
+import { Component, createSignal, onMount } from "solid-js";
 import aes from "crypto-js/aes";
 import styles from "./App.module.css";
 import Calendar from "./components/calendar/Calendar";
-import { aesDec, aesEnc } from "./helpers/aes";
+import { aesDec, aesDecMonth, aesEnc, aesEncMonth } from "./helpers/aes";
 import Diary from "./components/diary/Diary";
+import { IDayObject } from "./helpers/models";
 
 const App: Component = () => {
-  const [textData, setTextData] = createSignal("");
-  const [key, setKey] = createSignal("");
-  const [result, setResult] = createSignal("no result");
-  const [decryptResult, setDecryptResult] = createSignal("no result");
+  const dangerousKey = "1234567890123456";
+  const [queryDate, setQueryDate] = createSignal<string>(
+    new Date().getMonth().toString() + new Date().getFullYear().toString()
+  );
+
+  onMount(() => {
+    const decrypted = aesDecMonth(queryDate(), dangerousKey);
+
+    if (!decrypted) {
+      const totalDays = new Date(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        0
+      ).getDate();
+
+      const emptyMonth: IDayObject[] = Array.from(Array(totalDays).keys()).map(
+        (day) => {
+          return {
+            data: null,
+            number: day + 1,
+          };
+        }
+      );
+
+      aesEncMonth(emptyMonth, queryDate(), dangerousKey);
+    } else {
+      console.log("Data found");
+      const decryptedMonth = aesDecMonth(queryDate(), dangerousKey);
+      console.log("decryptedMonth", decryptedMonth);
+    }
+  });
 
   return (
     <div class={styles.App}>

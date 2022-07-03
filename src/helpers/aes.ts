@@ -1,5 +1,7 @@
 import aes from "crypto-js/aes";
+import sha256 from "crypto-js/sha256";
 import CryptoJS from "crypto-js";
+import { IDayObject } from "./models";
 
 export const aesEnc = (textData: string, key: string): string => {
   const timestamp: number = Math.floor(new Date().getTime() / 1000);
@@ -9,7 +11,25 @@ export const aesEnc = (textData: string, key: string): string => {
   );
   return aes.encrypt(textData, key).toString();
 };
+export const aesEncMonth = (
+  monthData: IDayObject[],
+  dateKey: string,
+  key: string
+): string => {
+  const enc = aesEnc(JSON.stringify(monthData), key);
+  localStorage.setItem(sha256(dateKey).toString(), enc);
+  return enc;
+};
 
+export const aesDecMonth = (dateKey: string, key: string): Object | null => {
+  let data = localStorage.getItem(sha256(dateKey).toString());
+  if (data) {
+    const decData = aesDec(data, key);
+
+    return JSON.parse(aesDec(data, key));
+  }
+  return null;
+};
 export const aesDec = (textData: string, key: string): string => {
   let bytes = aes.decrypt(textData, key);
   return bytes.toString(CryptoJS.enc.Utf8);

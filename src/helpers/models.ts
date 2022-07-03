@@ -69,6 +69,11 @@ export const DayJournal: IDayJournal[] = [
   },
 ];
 
+export interface IDayObject {
+  number: number;
+  data: Object | null;
+}
+
 /* values
 
 Rapporto sessuale 
