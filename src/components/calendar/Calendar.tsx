@@ -45,31 +45,40 @@ const Calendar: Component = () => {
   return (
     <div>
       <h3 class={styles.calendar__title}>
-        Oggi,{" "}
+        {actualDate.getDate() === selectedDay().number
+          ? "Oggi"
+          : new Date(
+              actualDate.getFullYear(),
+              actualDate.getMonth(),
+              selectedDay().number
+            ).toLocaleString("default", { weekday: "long" })}
+        ,{" "}
         {selectedDay().number +
           " " +
           actualDate.toLocaleString("default", { month: "long" })}
       </h3>
       <div class={styles.calendar}>
-        {getDays().map((day) => {
-          return (
-            <div
-              class={styles.calendar__day}
-              onClick={() => setSelectedDay(day)}
-            >
-              <p>{day.name}</p>
+        <div class={styles.calendar__container}>
+          {getDays().map((day) => {
+            return (
               <div
-                class={
-                  styles.calendar__day__capsule +
-                  " " +
-                  (day.number === selectedDay().number
-                    ? styles["calendar__day__capsule--selected"]
-                    : "")
-                }
-              ></div>
-            </div>
-          );
-        })}
+                class={styles.calendar__day}
+                onClick={() => setSelectedDay(day)}
+              >
+                <p>{day.name}</p>
+                <div
+                  class={
+                    styles.calendar__day__capsule +
+                    " " +
+                    (day.number === selectedDay().number
+                      ? styles["calendar__day__capsule--selected"]
+                      : "")
+                  }
+                ></div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
