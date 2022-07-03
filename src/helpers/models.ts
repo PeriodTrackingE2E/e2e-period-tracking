@@ -44,15 +44,9 @@ export const SymptomsArr: Symptom[] = [
 ];
 export type testResult = "Positivo" | "Negativo" | "Indeterminato";
 
-export type Period =
-  | "Con flusso"
-  | "Flusso assente"
-  | "Leggero"
-  | "Medio"
-  | "Abbondante";
+export type Period = "Flusso assente" | "Leggero" | "Medio" | "Abbondante";
 
 export const PeriodArr: Period[] = [
-  "Con flusso",
   "Flusso assente",
   "Leggero",
   "Medio",

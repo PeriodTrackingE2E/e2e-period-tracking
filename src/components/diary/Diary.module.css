@@ -26,6 +26,12 @@
 
 .diary__day__value {
   border-bottom: 1px solid #282c34;
-  padding: 6px 32px;
+  padding: 6px 0px;
   color: darkgray;
+  display: flex;
+}
+
+.diary__day__value__icon {
+  width: 32px;
+  text-align: center;
 }

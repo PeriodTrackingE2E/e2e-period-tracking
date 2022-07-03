@@ -1,21 +1,43 @@
 import { Component, ComponentProps, createSignal } from "solid-js";
-import { DayJournal } from "../../helpers/models";
+import { DayJournal, Period, Symptom } from "../../helpers/models";
 import styles from "./Diary.module.css";
 
-interface DiaryProps {
-  // add props here
-}
+function Diary() {
+  const [selectedValue, setSelectedValue] = createSignal<
+    Period | Symptom | string
+  >("");
 
-function Diary(props: DiaryProps) {
+  const [symptoms, setSymptoms] = createSignal<Symptom[]>(["Acne"]);
   return (
     <div class={styles.diary}>
       <h5>Diario del ciclo</h5>
-      {DayJournal.map((data) => (
+      {DayJournal.map((data, i) => (
         <div class={styles.diary__day}>
           <div class={styles.diary__day__title}>{data.title}</div>
           <div class={styles.diary__day__content}>
             {data.values.map((value) => (
-              <div class={styles.diary__day__value}>{value}</div>
+              <div
+                class={styles.diary__day__value}
+                onClick={() => {
+                  if (i === 1) {
+                    if (!symptoms().includes(value as Symptom)) {
+                      setSymptoms([...symptoms(), value as Symptom]);
+                    } else {
+                      setSymptoms(
+                        symptoms().filter((s: Symptom) => s !== value)
+                      );
+                    }
+                  } else {
+                    setSelectedValue(value);
+                  }
+                }}
+              >
+                <div class={styles.diary__day__value__icon}>
+                  {symptoms().includes(value as Symptom) ? "✔" : ""}
+                  {value === selectedValue() ? "✔" : ""}
+                </div>
+                <div>{value}</div>
+              </div>
             ))}
           </div>
         </div>
