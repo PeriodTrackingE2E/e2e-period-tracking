@@ -16,7 +16,7 @@ export const Diary: Component<IDiary> = (props) => {
 
   return (
     <div class={styles.diary}>
-      <h5>Diario del ciclo {props.dayNumber}</h5>
+      <h5>Diario del ciclo</h5>
       {DayJournal.map((tabData, i) => (
         <DiaryTab
           tab={tabData}
