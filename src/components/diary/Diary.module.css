@@ -17,6 +17,9 @@
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   background-color: #3f1914;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .diary__day__content {
   background-color: #1f1e23;

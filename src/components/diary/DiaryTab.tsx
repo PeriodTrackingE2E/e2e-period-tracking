@@ -17,11 +17,22 @@ export const DiaryTab: Component<DiaryTabProps> = ({
     Period | Symptom | string
   >("");
 
-  const [symptoms, setSymptoms] = createSignal<Symptom[]>(["Acne"]);
+  const [showContent, setShowContent] = createSignal<boolean>(false);
+
+  const [symptoms, setSymptoms] = createSignal<Symptom[]>([]);
   return (
     <div class={styles.diary__day}>
-      <div class={styles.diary__day__title}>{tab.title}</div>
-      <div class={styles.diary__day__content}>
+      <div
+        class={styles.diary__day__title}
+        onClick={() => setShowContent(!showContent())}
+      >
+        <div>{tab.title}</div>
+        <div>{showContent() ? "-" : "+"}</div>
+      </div>
+      <div
+        class={styles.diary__day__content}
+        style={{ display: showContent() ? "block" : "none" }}
+      >
         {tab.values.map((value) => (
           <div
             class={styles.diary__day__value}

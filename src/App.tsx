@@ -12,9 +12,11 @@ const App: Component = () => {
     new Date().getMonth().toString() + new Date().getFullYear().toString()
   );
 
+  const [monthData, setMonthData] = createSignal<IDayObject[]>([]);
+
   onMount(() => {
     const decrypted = aesDecMonth(queryDate(), dangerousKey);
-
+    let decryptedMonth: IDayObject[] = [];
     if (!decrypted) {
       const totalDays = new Date(
         new Date().getFullYear(),
@@ -32,11 +34,13 @@ const App: Component = () => {
       );
 
       aesEncMonth(emptyMonth, queryDate(), dangerousKey);
+      decryptedMonth = emptyMonth;
     } else {
       console.log("Data found");
-      const decryptedMonth = aesDecMonth(queryDate(), dangerousKey);
+      decryptedMonth = aesDecMonth(queryDate(), dangerousKey);
       console.log("decryptedMonth", decryptedMonth);
     }
+    setMonthData(decryptedMonth);
   });
 
   return (

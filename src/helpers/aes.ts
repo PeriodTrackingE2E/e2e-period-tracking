@@ -21,14 +21,14 @@ export const aesEncMonth = (
   return enc;
 };
 
-export const aesDecMonth = (dateKey: string, key: string): Object | null => {
+export const aesDecMonth = (dateKey: string, key: string): IDayObject[] => {
   let data = localStorage.getItem(sha256(dateKey).toString());
   if (data) {
     const decData = aesDec(data, key);
 
     return JSON.parse(aesDec(data, key));
   }
-  return null;
+  return [];
 };
 export const aesDec = (textData: string, key: string): string => {
   let bytes = aes.decrypt(textData, key);
