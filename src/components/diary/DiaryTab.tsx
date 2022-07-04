@@ -1,17 +1,25 @@
 import styles from "./Diary.module.css";
 import { Component, ComponentProps, createSignal } from "solid-js";
-import { DayJournal, IDayJournal, Period, Symptom } from "../../helpers/models";
+import {
+  DayJournal,
+  IDayJournal,
+  IDayObject,
+  Period,
+  Symptom,
+} from "../../helpers/models";
 
 interface DiaryTabProps {
   tab: IDayJournal;
   tabIndex: number;
+  monthData: IDayObject[];
   onSelect?: (value: string) => void;
+  onEdit: (value: string | Symptom[]) => void;
 }
 
 export const DiaryTab: Component<DiaryTabProps> = ({
   tab,
   tabIndex,
-  onSelect = () => {},
+  onEdit = () => {},
 }) => {
   const [selectedValue, setSelectedValue] = createSignal<
     Period | Symptom | string
@@ -43,10 +51,11 @@ export const DiaryTab: Component<DiaryTabProps> = ({
                 } else {
                   setSymptoms(symptoms().filter((s: Symptom) => s !== value));
                 }
+                onEdit(symptoms());
               } else {
                 setSelectedValue(value);
+                onEdit(value);
               }
-              onSelect(value);
             }}
           >
             <div class={styles.diary__day__value__icon}>

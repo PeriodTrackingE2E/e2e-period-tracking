@@ -3,7 +3,7 @@ import aes from "crypto-js/aes";
 import styles from "./App.module.css";
 import Calendar from "./components/calendar/Calendar";
 import { aesDec, aesDecMonth, aesEnc, aesEncMonth } from "./helpers/aes";
-import Diary from "./components/diary/Diary";
+import { Diary } from "./components/diary/Diary";
 import { IDayObject } from "./helpers/models";
 
 const App: Component = () => {
@@ -53,7 +53,7 @@ const App: Component = () => {
           monthData={monthData()}
           onSelect={(num) => setSelectedDay(num)}
         />
-        <Diary />
+        <Diary onEdit={() => getMonthData()} />
       </div>
     </div>
   );
