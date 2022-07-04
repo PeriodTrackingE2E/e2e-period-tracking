@@ -1,17 +1,15 @@
 import styles from "./Diary.module.css";
 import { Component, ComponentProps, createSignal } from "solid-js";
 import {
-  DayJournal,
-  IDayJournal,
+  IDayJournalTab,
   IDayObject,
   Period,
   Symptom,
 } from "../../helpers/models";
 
 interface DiaryTabProps {
-  tab: IDayJournal;
+  tab: IDayJournalTab;
   tabIndex: number;
-  monthData: IDayObject[];
   onSelect?: (value: string) => void;
   onEdit: (value: string | Symptom[]) => void;
 }

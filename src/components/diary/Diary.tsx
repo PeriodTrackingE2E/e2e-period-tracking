@@ -4,11 +4,12 @@ import styles from "./Diary.module.css";
 import DiaryTab from "./DiaryTab";
 
 interface IDiary {
-  onEdit: (value: string) => void;
+  onEdit: (value: IDayObject) => void;
   monthData: IDayObject[];
+  dayNumber: number;
 }
 
-export const Diary: Component<IDiary> = ({ onEdit, monthData }) => {
+export const Diary: Component<IDiary> = ({ monthData, dayNumber }) => {
   return (
     <div class={styles.diary}>
       <h5>Diario del ciclo</h5>
@@ -16,8 +17,16 @@ export const Diary: Component<IDiary> = ({ onEdit, monthData }) => {
         <DiaryTab
           tab={data}
           tabIndex={i}
-          onEdit={(value) => console.log("value", value)}
-          monthData={monthData}
+          onEdit={(value) => {
+            const tabObj = { title: DayJournal[i].title, values: value };
+            const newMonthData = monthData.map((day) => {
+              if (day.number === dayNumber) {
+                const res = { ...day, data: tabObj };
+                console.log("res", res);
+              }
+              return day;
+            });
+          }}
         />
       ))}
     </div>

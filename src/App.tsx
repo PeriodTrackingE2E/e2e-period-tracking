@@ -53,7 +53,17 @@ const App: Component = () => {
           monthData={monthData()}
           onSelect={(num) => setSelectedDay(num)}
         />
-        <Diary onEdit={() => getMonthData()} />
+        <Diary
+          monthData={monthData()}
+          dayNumber={selectedDay()}
+          onEdit={(value) => {
+            if (monthData()[selectedDay()].data) {
+              console.log("Edit", [...monthData(), value]);
+
+              setMonthData([...monthData(), value]);
+            }
+          }}
+        />
       </div>
     </div>
   );
