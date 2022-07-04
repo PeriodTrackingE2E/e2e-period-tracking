@@ -12,8 +12,8 @@ interface ICalendar {
   onSelect: (value: number) => void;
 }
 
-const Calendar: Component<ICalendar> = ({ monthData, onSelect = () => {} }) => {
-  console.log(monthData.length);
+const Calendar: Component<ICalendar> = (props) => {
+  console.log(props.monthData.length);
 
   const [selectedDay, setSelectedDay] = createSignal<Day>({
     name: getDayName(
@@ -32,7 +32,7 @@ const Calendar: Component<ICalendar> = ({ monthData, onSelect = () => {} }) => {
   }
 
   const getDays = (): Day[] => {
-    return Array.from(Array(monthData.length).keys()).map((day) => {
+    return Array.from(Array(props.monthData.length).keys()).map((day) => {
       return {
         name: getDayName(
           new Date(actualDate.getFullYear(), actualDate.getMonth(), day + 1)
@@ -65,7 +65,7 @@ const Calendar: Component<ICalendar> = ({ monthData, onSelect = () => {} }) => {
                 class={styles.calendar__day}
                 onClick={() => {
                   setSelectedDay(day);
-                  onSelect(day.number);
+                  props.onSelect(day.number);
                 }}
               >
                 <p>{day.name}</p>
@@ -77,7 +77,15 @@ const Calendar: Component<ICalendar> = ({ monthData, onSelect = () => {} }) => {
                       ? styles["calendar__day__capsule--selected"]
                       : "")
                   }
-                ></div>
+                >
+                  {props.monthData[i] &&
+                    props.monthData[i].data.period &&
+                    props.monthData[i].data.period !== "Flusso assente" && (
+                      <div
+                        class={styles["calendar__day__capsule--period"]}
+                      ></div>
+                    )}
+                </div>
               </div>
             );
           })}

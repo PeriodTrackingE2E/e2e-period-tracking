@@ -39,10 +39,13 @@
 .calendar__day__capsule {
   border: 1px solid white;
   border-radius: 16px;
-  padding: 0px 16px;
+  width: 32px;
   height: 64px;
   margin: 0px 2px;
   background-color: white;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
 }
 
 .calendar__day__capsule--selected {
@@ -50,5 +53,15 @@
 
   height: 84px;
   border-radius: 24px;
-  padding: 0px 18px;
+  width: 36px;
+}
+
+.calendar__day__capsule--period {
+  align-self: center;
+  position: relative;
+  bottom: 4px;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-color: red;
 }
