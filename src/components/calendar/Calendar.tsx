@@ -65,8 +65,7 @@ const Calendar: Component<ICalendar> = ({ monthData, onSelect = () => {} }) => {
                 class={styles.calendar__day}
                 onClick={() => {
                   setSelectedDay(day);
-                  onSelect;
-                  console.log("day", monthData[i]);
+                  onSelect(day.number);
                 }}
               >
                 <p>{day.name}</p>

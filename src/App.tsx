@@ -45,6 +45,8 @@ const App: Component = () => {
       console.log("Data found");
       decryptedMonth = aesDecMonth(queryDate(), dangerousKey);
     }
+    console.log("decryptedMonth", decryptedMonth);
+
     return decryptedMonth;
   };
 
@@ -62,7 +64,7 @@ const App: Component = () => {
           monthData={monthData()}
           dayNumber={selectedDay()}
           onEdit={(value) => {
-            console.log(value);
+            console.log("value", value);
 
             setMonthData(value);
             aesEncMonth(value, queryDate(), dangerousKey);

@@ -21,19 +21,12 @@ export const Diary: Component<IDiary> = ({
         <DiaryTab
           tab={tabData}
           tabIndex={i}
+          selectedValues={monthData[dayNumber - 1].data[DayJournal[i].id] || ""}
           onEdit={(value) => {
-            const tabObj = { title: DayJournal[i].title, values: value };
-            const newDay: IDayObject[] = monthData.map((day) => {
-              if (day.number === dayNumber) {
-                const res = {
-                  ...day,
-                  data: { ...day.data, [DayJournal[i].id]: tabObj },
-                };
-                return res;
-              }
-              return day;
-            });
-            onEdit(newDay);
+            let newMonth = [...monthData];
+            newMonth[dayNumber - 1].data[DayJournal[i].id] = value;
+            console.log("newMonth", newMonth);
+            onEdit(newMonth);
           }}
         />
       ))}

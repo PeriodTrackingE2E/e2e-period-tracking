@@ -9,23 +9,29 @@ import {
 
 interface DiaryTabProps {
   tab: IDayJournalTab;
+  selectedValues: Period | Symptom[] | string;
   tabIndex: number;
   onSelect?: (value: string) => void;
-  onEdit: (value: string | Symptom[]) => void;
+  onEdit: (value: Period | Symptom[] | null) => void;
 }
 
 export const DiaryTab: Component<DiaryTabProps> = ({
   tab,
+  selectedValues,
   tabIndex,
   onEdit = () => {},
 }) => {
   const [selectedValue, setSelectedValue] = createSignal<
-    Period | Symptom | string
-  >("");
+    Period | Symptom[] | string
+  >(selectedValues || "");
 
   const [showContent, setShowContent] = createSignal<boolean>(false);
 
-  const [symptoms, setSymptoms] = createSignal<Symptom[]>([]);
+  const [symptoms, setSymptoms] = createSignal<Symptom[]>(
+    tabIndex === 1 ? (selectedValues as Symptom[]) : []
+  );
+  console.log("selectedValues", selectedValues);
+
   return (
     <div class={styles.diary__day}>
       <div
@@ -52,7 +58,7 @@ export const DiaryTab: Component<DiaryTabProps> = ({
                 onEdit(symptoms());
               } else {
                 setSelectedValue(value);
-                onEdit(value);
+                onEdit(value as Period);
               }
             }}
           >
