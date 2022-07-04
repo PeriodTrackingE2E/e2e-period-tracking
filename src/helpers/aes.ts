@@ -24,8 +24,6 @@ export const aesEncMonth = (
 export const aesDecMonth = (dateKey: string, key: string): IDayObject[] => {
   let data = localStorage.getItem(sha256(dateKey).toString());
   if (data) {
-    const decData = aesDec(data, key);
-
     return JSON.parse(aesDec(data, key));
   }
   return [];

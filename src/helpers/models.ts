@@ -59,16 +59,19 @@ export interface IDayJournal {
 }
 
 export interface IDayJournalTab {
+  id: string;
   title: string;
   values: string[];
 }
 
 export const DayJournal: IDayJournalTab[] = [
   {
+    id: "period",
     title: "Mestruazioni",
     values: PeriodArr,
   },
   {
+    id: "symptoms",
     title: "Sintomi",
     values: SymptomsArr,
   },
@@ -76,7 +79,7 @@ export const DayJournal: IDayJournalTab[] = [
 
 export interface IDayObject {
   number: number;
-  data: IDayJournal[] | null;
+  data: { symptoms: Symptom[] | []; period: Period | null };
 }
 
 /* values

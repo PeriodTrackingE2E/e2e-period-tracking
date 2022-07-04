@@ -1,8 +1,7 @@
 import { Component, createSignal, onMount } from "solid-js";
-import aes from "crypto-js/aes";
 import styles from "./App.module.css";
 import Calendar from "./components/calendar/Calendar";
-import { aesDec, aesDecMonth, aesEnc, aesEncMonth } from "./helpers/aes";
+import { aesDecMonth, aesEncMonth } from "./helpers/aes";
 import { Diary } from "./components/diary/Diary";
 import { IDayObject } from "./helpers/models";
 
@@ -17,8 +16,11 @@ const App: Component = () => {
 
   const getMonthData = (): IDayObject[] => {
     const decrypted = aesDecMonth(queryDate(), dangerousKey);
+
     let decryptedMonth: IDayObject[] = [];
-    if (!decrypted) {
+    if (decrypted.length === 0) {
+      console.log("no data");
+
       const totalDays = new Date(
         new Date().getFullYear(),
         new Date().getMonth(),
@@ -28,7 +30,10 @@ const App: Component = () => {
       const emptyMonth: IDayObject[] = Array.from(Array(totalDays).keys()).map(
         (day) => {
           return {
-            data: null,
+            data: {
+              period: null,
+              symptoms: [],
+            },
             number: day + 1,
           };
         }
@@ -57,11 +62,10 @@ const App: Component = () => {
           monthData={monthData()}
           dayNumber={selectedDay()}
           onEdit={(value) => {
-            if (monthData()[selectedDay()].data) {
-              console.log("Edit", [...monthData(), value]);
+            console.log(value);
 
-              setMonthData([...monthData(), value]);
-            }
+            setMonthData(value);
+            aesEncMonth(value, queryDate(), dangerousKey);
           }}
         />
       </div>
