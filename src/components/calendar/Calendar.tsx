@@ -1,4 +1,5 @@
 import { Component, ComponentProps, createSignal } from "solid-js";
+import { IDayObject } from "../../helpers/models";
 import styles from "./Calendar.module.css";
 
 interface Day {
@@ -6,7 +7,14 @@ interface Day {
   number: number;
 }
 
-const Calendar: Component = () => {
+interface ICalendar {
+  monthData: IDayObject[];
+  onSelect: (value: number) => void;
+}
+
+const Calendar: Component<ICalendar> = ({ monthData, onSelect = () => {} }) => {
+  console.log(monthData.length);
+
   const [selectedDay, setSelectedDay] = createSignal<Day>({
     name: getDayName(
       new Date(
@@ -24,15 +32,7 @@ const Calendar: Component = () => {
   }
 
   const getDays = (): Day[] => {
-    const totalDays = new Date(
-      actualDate.getFullYear(),
-      actualDate.getMonth(),
-      0
-    ).getDate();
-
-    console.log("totalDays", totalDays);
-
-    return Array.from(Array(totalDays).keys()).map((day) => {
+    return Array.from(Array(monthData.length).keys()).map((day) => {
       return {
         name: getDayName(
           new Date(actualDate.getFullYear(), actualDate.getMonth(), day + 1)
@@ -59,11 +59,15 @@ const Calendar: Component = () => {
       </h3>
       <div class={styles.calendar}>
         <div class={styles.calendar__container}>
-          {getDays().map((day) => {
+          {getDays().map((day, i) => {
             return (
               <div
                 class={styles.calendar__day}
-                onClick={() => setSelectedDay(day)}
+                onClick={() => {
+                  setSelectedDay(day);
+                  onSelect;
+                  console.log("day", monthData[i]);
+                }}
               >
                 <p>{day.name}</p>
                 <div

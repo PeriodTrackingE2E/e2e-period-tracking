@@ -11,10 +11,11 @@ const App: Component = () => {
   const [queryDate, setQueryDate] = createSignal<string>(
     new Date().getMonth().toString() + new Date().getFullYear().toString()
   );
+  const [selectedDay, setSelectedDay] = createSignal<number>(
+    new Date().getDate()
+  );
 
-  const [monthData, setMonthData] = createSignal<IDayObject[]>([]);
-
-  onMount(() => {
+  const getMonthData = (): IDayObject[] => {
     const decrypted = aesDecMonth(queryDate(), dangerousKey);
     let decryptedMonth: IDayObject[] = [];
     if (!decrypted) {
@@ -38,16 +39,20 @@ const App: Component = () => {
     } else {
       console.log("Data found");
       decryptedMonth = aesDecMonth(queryDate(), dangerousKey);
-      console.log("decryptedMonth", decryptedMonth);
     }
-    setMonthData(decryptedMonth);
-  });
+    return decryptedMonth;
+  };
+
+  const [monthData, setMonthData] = createSignal<IDayObject[]>(getMonthData());
 
   return (
     <div class={styles.App}>
       <div class="container">
-        <h1>E2E Tracking app</h1>
-        <Calendar />
+        <h1>E2E Tracking app {selectedDay}</h1>
+        <Calendar
+          monthData={monthData()}
+          onSelect={(num) => setSelectedDay(num)}
+        />
         <Diary />
       </div>
     </div>
