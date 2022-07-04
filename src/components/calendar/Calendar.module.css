@@ -43,9 +43,12 @@
   height: 64px;
   margin: 0px 2px;
   background-color: white;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
 }
 
 .calendar__day__capsule--selected {
@@ -58,10 +61,16 @@
 
 .calendar__day__capsule--period {
   align-self: center;
-  position: relative;
-  bottom: 4px;
   height: 24px;
   width: 24px;
   border-radius: 50%;
   background-color: red;
+}
+
+.calendar__day__capsule--symptoms {
+  align-self: center;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: cornflowerblue;
 }

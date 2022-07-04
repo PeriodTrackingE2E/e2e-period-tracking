@@ -77,7 +77,7 @@ export const DayJournal: IDayJournalTab[] = [
   },
 ];
 
-type TDayData = { symptoms: Symptom[] | null; period: Period | null };
+type TDayData = { symptoms: Symptom[] | []; period: Period | null };
 
 export interface IDayObject {
   number: number;

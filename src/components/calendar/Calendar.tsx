@@ -78,13 +78,23 @@ const Calendar: Component<ICalendar> = (props) => {
                       : "")
                   }
                 >
-                  {props.monthData[i] &&
-                    props.monthData[i].data.period &&
-                    props.monthData[i].data.period !== "Flusso assente" && (
-                      <div
-                        class={styles["calendar__day__capsule--period"]}
-                      ></div>
-                    )}
+                  <div>
+                    {props.monthData[i] &&
+                      props.monthData[i].data.symptoms?.length > 0 && (
+                        <div
+                          class={styles["calendar__day__capsule--symptoms"]}
+                        ></div>
+                      )}
+                  </div>
+                  <div>
+                    {props.monthData[i] &&
+                      props.monthData[i].data.period &&
+                      props.monthData[i].data.period !== "Flusso assente" && (
+                        <div
+                          class={styles["calendar__day__capsule--period"]}
+                        ></div>
+                      )}
+                  </div>
                 </div>
               </div>
             );
