@@ -17,7 +17,7 @@ interface DiaryTabProps {
   selectedValues: Period | Symptom[] | string;
   tabIndex: number;
   onSelect?: (value: string) => void;
-  onEdit: (value: Period | Symptom[] | null) => void;
+  onEdit: (value: (Period | null) & ([] | Symptom[])) => void;
 }
 
 export const DiaryTab: Component<DiaryTabProps> = (props) => {
@@ -59,7 +59,7 @@ export const DiaryTab: Component<DiaryTabProps> = (props) => {
                 } else {
                   setSymptoms(symptoms().filter((s: Symptom) => s !== value));
                 }
-                props.onEdit(symptoms());
+                props.onEdit(symptoms() as Symptom[]);
               } else {
                 setSelectedValue(value);
                 props.onEdit(value as Period);
